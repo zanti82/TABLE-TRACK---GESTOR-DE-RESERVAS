@@ -15,7 +15,7 @@ function Header() {
   return (
     <div className="header">
       <div className="header-logo">
-        🍽️ Restaurante
+        🍽️ Restaurante La buena mesa
       </div>
       <div className="header-info">
         <span className="header-usuario">
