@@ -4,13 +4,11 @@ import { getLocalStorage, removeLocalStorage } from '../helpers/local-storage';
 
 function Header() {
   let usuario = getLocalStorage('usuario');
-  let turno = getLocalStorage('turno');
-  let usuarioId = getLocalStorage('usuarioId')
+  
 
   function handleLogout() {
     removeLocalStorage('usuario');
-    removeLocalStorage('turno');
-    removeLocalStorage('usuarioId')
+   
     window.location.href = '/login';
   }
 
@@ -21,7 +19,7 @@ function Header() {
       </div>
       <div className="header-info">
         <span className="header-usuario">
-          {usuario !== null && usuario + ' - ' + turno}
+          {usuario !== null && usuario.nombre + ' - ' + usuario.turno}
           {usuario === null && 'Hola Host'}
         </span>
         <button className="header-boton" onClick={handleLogout}>

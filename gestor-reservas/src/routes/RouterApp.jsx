@@ -3,6 +3,7 @@
 import React from 'react';
 import Login from '../pages/Login';
 import Panelp from '../pages/Panelp';
+import RutaProtegida from '../components/RutaProtegida';
 
 
 
@@ -18,6 +19,9 @@ export let routerApp = [
 
     {
       path: "/panel",
-      element: <Panelp />,
-    }
+      element:
+        <RutaProtegida>
+          <Panelp />
+        </RutaProtegida>
+     }
   ];
