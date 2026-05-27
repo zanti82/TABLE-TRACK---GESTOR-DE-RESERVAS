@@ -25,6 +25,7 @@ function Panelp() {
   useEffect(()=> {
     getReservas();
   }, []);
+  
 
   console.log(reservas)
 
