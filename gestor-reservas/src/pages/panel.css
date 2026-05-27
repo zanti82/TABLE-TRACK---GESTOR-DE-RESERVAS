@@ -1,0 +1,87 @@
+.panel-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .panel-titulo {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .panel-formulario {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  
+  .panel-campo {
+    margin-bottom: 15px;
+  }
+  
+  .panel-campo label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .panel-campo input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .panel-boton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .panel-boton:hover {
+    background-color: #0056b3;
+  }
+  
+  .panel-lista {
+    margin-top: 30px;
+  }
+  
+  .panel-tabla {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .panel-tabla th {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .panel-tabla td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .panel-tabla tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .panel-boton-eliminar {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .panel-boton-eliminar:hover {
+    background-color: #c82333;
+  }
