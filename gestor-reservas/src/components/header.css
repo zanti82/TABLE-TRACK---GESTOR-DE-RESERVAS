@@ -1,0 +1,36 @@
+.header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .header-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .header-usuario {
+    font-size: 16px;
+  }
+  
+  .header-boton {
+    padding: 8px 15px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .header-boton:hover {
+    background-color: #c82333;
+  }
