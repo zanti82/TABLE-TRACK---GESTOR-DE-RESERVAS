@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import { generalAlert } from '../helpers/alerts.js';
+import { generalAlert, redirectAlert } from '../helpers/alerts.js';
 import './panel.css';
+import ModalReserva from '../components/ModalReserva';
 import { end_points } from '../services/api.js';
+import Swal from 'sweetalert2';
 
 function Panelp() {
   const [reservas, setReservas] = useState([]);
-  const [nombre, setNombre] = useState('');
-  const [fecha, setFecha] = useState('');
-  const [hora, setHora] = useState('');
-  const [personas, setPersonas] = useState('');
+  const [mostrarModal, setMostrarModal] = useState(false);
+
+  //para editar
+  const [editando, setEditando] = useState(false);
+  const [reservaEditar, setReservaEditar] = useState(null);
 
 
   function getReservas() {
@@ -19,65 +22,83 @@ function Panelp() {
         
     }
 
-  useEffect(function() {
+  useEffect(()=> {
     getReservas();
   }, []);
 
   console.log(reservas)
 
+  function handleAbrirModalCrear() {
+    setEditando(false);
+    setReservaEditar(null);
+    setMostrarModal(true);
+  }
+
   
+  /* ya no va porque el modal se cierra
+  function  limpiarFormulario(){
+    setNombre('');
+    setFecha('');
+    setHora('');
+    setPersonas('');
+    setEditando(false);
+    setIdEditando(null);
+  }*/
 
-  function handleNombre(e) {
-    setNombre(e.target.value);
-  }
-
-  function handleFecha(e) {
-    setFecha(e.target.value);
-  }
-
-  function handleHora(e) {
-    setHora(e.target.value);
-  }
-
-  function handlePersonas(e) {
-    setPersonas(e.target.value);
-  }
-
-  function handleCrearReserva(e) {
-    e.preventDefault();
-
-    if (nombre === '' || fecha === '' || hora === '' || personas === '') {
-      generalAlert('Error', 'Completá todos los campos', 'error');
-      return;
-    }
-
-    let nuevaReserva = {
-      nombre: nombre,
-      fecha: fecha,
-      hora: hora,
-      personas: parseInt(personas)
-    };
-
-    //console.log(nuevaReserva)
-    fetch(end_points.reservas, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(nuevaReserva)
-    })
+  function handleGuardar(reservaData) {
+   
+    //editar
+    if(editando === true){
+      fetch(end_points.reservas + reservaEditar.id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reservaData)
+      })
       .then((respuesta) => respuesta.json())
       .then(function() {
-        generalAlert('Éxito', 'Reserva creada correctamente', 'success');
-        setNombre('');
-        setFecha('');
-        setHora('');
-        setPersonas('');
+        generalAlert('Éxito', 'Reserva editada correctamente', 'success');
+        handleCerrarModal();
         getReservas();
       })
-      .catch(
+      .catch(()=>
         generalAlert('Error', 'No se pudo crear la reserva', 'error')
       );
+
+
+    }else{
+      fetch(end_points.reservas, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reservaData)
+      })
+        .then((respuesta) => respuesta.json())
+        .then(function() {
+          generalAlert('Éxito', 'Reserva creada correctamente', 'success');
+         handleCerrarModal();
+          getReservas();
+        })
+        .catch(()=>
+          generalAlert('Error', 'No se pudo crear la reserva', 'error')
+        );
+    }
+  }  
+
+  //PARA BOTON EDITAR
+
+  function handleEditar(reserva) {
+    setEditando(true);
+    setReservaEditar(reserva);
+    setMostrarModal(true);
+  }
+
+  function handleCerrarModal() {
+    setMostrarModal(false);
+    setEditando(false);
+    setReservaEditar(null);
   }
 
   function handleEliminar(id) {
@@ -93,56 +114,45 @@ function Panelp() {
       );
   }
 
+  var handleConfirmarEliminar = function(id, nombre) {
+
+     Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Vas a eliminar la reserva de ' + nombre,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((resultado)=> {
+      if (resultado.isConfirmed) {
+        handleEliminar(id);
+      }
+    });
+  };
+
   return (
     <div>
       <Header />
       <div className="panel-container">
         <h2 className="panel-titulo">Gestión de Reservas</h2>
+        <button
+            onClick={handleAbrirModalCrear}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#28a745',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '16px'
+            }}
+          >
+            Nueva Reserva
+          </button>
+      </div>
 
-        <div className="panel-formulario">
-          <h3>Nueva Reserva</h3>
-          <form onSubmit={handleCrearReserva}>
-            <div className="panel-campo">
-              <label>Nombre:</label>
-              <input
-                type="text"
-                value={nombre}
-                onChange={handleNombre}
-                placeholder="Nombre del cliente"
-              />
-            </div>
-            <div className="panel-campo">
-              <label>Fecha:</label>
-              <input
-                type="date"
-                value={fecha}
-                onChange={handleFecha}
-              />
-            </div>
-            <div className="panel-campo">
-              <label>Hora:</label>
-              <input
-                type="time"
-                value={hora}
-                onChange={handleHora}
-              />
-            </div>
-            <div className="panel-campo">
-              <label>Número de personas:</label>
-              <input
-                type="number"
-                value={personas}
-                onChange={handlePersonas}
-                placeholder="Cantidad de personas"
-              />
-            </div>
-            <button type="submit" className="panel-boton">
-              Crear Reserva
-            </button>
-          </form>
-        </div>
-
-        <div className="panel-lista">
+                    
+          <div className="panel-lista">
           <h3>Reservas Actuales</h3>
           <table className="panel-tabla">
             <thead>
@@ -151,7 +161,7 @@ function Panelp() {
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Personas</th>
-                <th>Acción</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -165,9 +175,16 @@ function Panelp() {
                     <td>
                       <button
                         className="panel-boton-eliminar"
-                        onClick={function() { handleEliminar(reserva.id); }}
+                        onClick={() => { handleConfirmarEliminar(reserva.id, reserva.nombre); }}
                       >
                         Eliminar
+                      </button>
+                      <button
+                          className="panel-boton-editar"
+                          onClick={() => { handleEditar(reserva); }}
+                          style={{ marginLeft: '5px', padding: '5px 10px', backgroundColor: '#ffc107', color: 'black', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                        >
+                          Editar
                       </button>
                     </td>
                   </tr>
@@ -176,8 +193,15 @@ function Panelp() {
             </tbody>
           </table>
         </div>
+        <ModalReserva
+          mostrar={mostrarModal}
+          editando={editando}
+          reservaEditar={reservaEditar}
+          onCerrar={handleCerrarModal}
+          onGuardar={handleGuardar}
+        />
       </div>
-    </div>
+    
   );
 }
 
