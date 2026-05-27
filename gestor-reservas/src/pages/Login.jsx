@@ -3,6 +3,7 @@ import { generalAlert, redirectAlert } from '../helpers/alerts.js';
 import './Login.css';
 import { saveLocalStorage } from '../helpers/local-storage';
 import { end_points } from '../services/api';
+import Header from '../components/Header.jsx';
 
 function Login() {
   const [nombre, setNombre] = useState('');
@@ -13,7 +14,7 @@ function Login() {
     fetch(end_points.usuarios)
       .then((response) => response.json())
       .then((data) => setUsers(data))
-      .catch(generalAlert('Error', 'No se pudieron cargar los usuarios', 'error'))
+      .catch(()=>generalAlert('Error', 'No se pudieron cargar los usuarios', 'error'))
   }
 
   useEffect(() => {
@@ -50,7 +51,7 @@ function Login() {
     let host= findHost()
     if (host) {
         saveLocalStorage("usuario", host)
-        redirectAlert("Bienvenido al sistema " + host.nombre, "Será redireccionado al panel pricipal en", "success", "/dashboard")
+        redirectAlert("Bienvenido al sistema " + host.nombre, "Será redireccionado al panel pricipal en", "success", "/panel")
       } else {
         redirectAlert("Error de credenciales", "Esta ventana se cerrará en ", "error", "/")
       }
@@ -61,35 +62,38 @@ function Login() {
   }
 
   return (
-    <div className="login-container">
-      <div className="login-caja">
-        <h2 className="login-titulo">Iniciar sesión</h2>
+    <div>
+      <Header/>
+      <div className="login-container">
+        <div className="login-caja">
+          <h2 className="login-titulo">Iniciar sesión</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div className="login-campo">
-            <label>Nombre:</label>
-            <input
-              type="text"
-              value={nombre}
-              onChange={handleNombre}
-              placeholder="Ingresá tu nombre"
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="login-campo">
+              <label>Nombre:</label>
+              <input
+                type="text"
+                value={nombre}
+                onChange={handleNombre}
+                placeholder="Ingresá tu nombre"
+              />
+            </div>
 
-          <div className="login-campo">
-            <label>Turno:</label>
-            <select value={turno} onChange={handleTurno}>
-              <option value="">Selecciona un turno</option>
-              <option value="manana">Mañana</option>
-              <option value="tarde">Tarde</option>
-              <option value="noche">Noche</option>
-            </select>
-          </div>
+            <div className="login-campo">
+              <label>Turno:</label>
+              <select value={turno} onChange={handleTurno}>
+                <option value="">Selecciona un turno</option>
+                <option value="manana">Mañana</option>
+                <option value="tarde">Tarde</option>
+                <option value="noche">Noche</option>
+              </select>
+            </div>
 
-          <button type="submit" className="login-boton">
-            Ingresar
-          </button>
-        </form>
+            <button type="submit" className="login-boton">
+              Ingresar
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

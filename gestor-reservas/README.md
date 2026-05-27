@@ -12,3 +12,17 @@ para cambiar su estado a "Finalizada" cuando el cliente se retire de la mesa.
 requiere el uso de SweetAlert2 para mostrar un cuadro de diálogo de confirmación
 indicando "¿Estás seguro de cancelar esta reserva?" antes de disparar la petición DELETE
 a la API. Confirmar el éxito de la cancelación con otra alerta.
+
+
+## levantar fron con npm run dev
+## levantar database con npm run server
+
+## info
+
+Aplicacion web de manejo de reservas de un restaurante.
+Maneja dos paginas, una para login y otra para hacer el CRUD de las reservas.
+Css puros, para mejor control sin problemas de internet.
+Un compoenente basico para el header en las dos paginas.
+
+
+

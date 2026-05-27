@@ -21,7 +21,8 @@ function Header() {
       </div>
       <div className="header-info">
         <span className="header-usuario">
-          {usuario.nombre} - {usuario.turno}
+          {usuario !== null && usuario + ' - ' + turno}
+          {usuario === null && 'Hola Host'}
         </span>
         <button className="header-boton" onClick={handleLogout}>
           Cerrar sesión
