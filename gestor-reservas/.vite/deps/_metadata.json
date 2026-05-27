@@ -1,0 +1,48 @@
+{
+  "hash": "75be8596",
+  "configHash": "a00163df",
+  "lockfileHash": "0d0fb92d",
+  "browserHash": "f307b9a4",
+  "optimized": {
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "b6c5468a",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "78fd2586",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "19d192a6",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "a71465ce",
+      "needsInterop": true
+    },
+    "sweetalert2": {
+      "src": "../../node_modules/sweetalert2/dist/sweetalert2.all.js",
+      "file": "sweetalert2.js",
+      "fileHash": "7aaf76e0",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-FDOR9p9I": {
+      "file": "chunk-FDOR9p9I.js",
+      "isDynamicEntry": false
+    },
+    "react-dom-C8A0s9KG": {
+      "file": "react-dom-C8A0s9KG.js",
+      "isDynamicEntry": false
+    }
+  }
+}
